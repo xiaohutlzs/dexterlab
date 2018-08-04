@@ -1,4 +1,4 @@
-package com.dexterlab.tlzs;
+package com.dexterlab.crm;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

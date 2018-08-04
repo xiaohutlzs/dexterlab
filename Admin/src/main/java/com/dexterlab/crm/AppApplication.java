@@ -1,12 +1,13 @@
-package com.dexterlab.tlzs;
+package com.dexterlab.crm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TlzsApplication {
+public class AppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TlzsApplication.class, args);
+		System.setProperty("spring.devtools.restart.enabled", "false");
+		SpringApplication.run(AppApplication.class, args);
 	}
 }
