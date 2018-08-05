@@ -7,13 +7,13 @@
 
 # 1 服务端
 --------------------
-  ### jdk       :JAVA10
-  ### framework:Springboot2
-  ### orm       :jpa
-  ### db        :mysql8
-  ### cache     :redis4
-  ### websockets:flux
-  ### 消息队列    :kafka or dubble
+  * jdk       :JAVA10
+  * framework:Springboot2
+  * orm       :jpa
+  * db        :mysql8
+  * cache     :redis4
+  * websockets:flux
+  * 消息队列    :kafka or dubble
 # 2 管理端 
 ----------------------
   anglarjs  需调研anglarjs框架与build 方法<br>
