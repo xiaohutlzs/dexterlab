@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.enums.IdType;
 
 @TableName("t_user")
 public class User {
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "user_id", type = IdType.AUTO)
     private Integer userId;
     private String userName;
     private String password;
