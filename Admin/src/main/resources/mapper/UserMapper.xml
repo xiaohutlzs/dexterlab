@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dexterlab.crm.dao.UserMapper">
     <resultMap id="BaseResultMap" type="com.dexterlab.crm.domain.entity.User">
-        <id column="userId" property="userId"></id>
-        <result column="userName" property="userName"></result>
+        <id column="user_id" property="userId"></id>
+        <result column="user_name" property="userName"></result>
         <result column="password" property="password"></result>
         <result column="phone" property="phone"></result>
     </resultMap>
 
     <sql id="base_column_list">
-        userId,userName,password,phone
+        user_id,user_name,password,phone
     </sql>
 
     <select id="findAllUser" resultMap="BaseResultMap">
@@ -18,6 +18,10 @@
         from t_user
     </select>
 
-
+    <select id="findByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="base_column_list" />
+        from t_user where user_name = #{userName}
+    </select>
 
 </mapper>
