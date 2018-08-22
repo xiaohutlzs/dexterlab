@@ -6,10 +6,11 @@
         <result column="user_name" property="userName"></result>
         <result column="password" property="password"></result>
         <result column="phone" property="phone"></result>
+        <result column="admin_flag" property="admin"></result>
     </resultMap>
 
     <sql id="base_column_list">
-        user_id,user_name,password,phone
+        user_id,user_name,password,phone,admin_flag
     </sql>
 
     <select id="findAllUser" resultMap="BaseResultMap">

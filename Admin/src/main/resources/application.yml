@@ -7,6 +7,19 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
+  # JACKSON
+  jackson:
+    serialization:
+      indent-output: true
+      write-dates-as-timestamps: false
+      write-durations-as-timestamps: true
+  # DEVTOOLS
+  devtools:
+    livereload:
+      enabled: false
+    restart:
+      log-condition-evaluation-delta: true
+      enabled: true
 mybatis-plus:
   mapper-locations: classpath:mapper/*Mapper.xml
   typeAliasesPackage: com.dexterlab.crm.domain.entity

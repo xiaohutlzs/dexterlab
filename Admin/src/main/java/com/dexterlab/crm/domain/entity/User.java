@@ -1,5 +1,6 @@
 package com.dexterlab.crm.domain.entity;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
@@ -11,6 +12,8 @@ public class User {
     private String userName;
     private String password;
     private String phone;
+    @TableField(value = "admin_flag")
+    private Boolean admin;
 
     public Integer getUserId() {
         return userId;
@@ -42,5 +45,13 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone == null ? null : phone.trim();
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 }
