@@ -7,6 +7,7 @@ import com.dexterlab.crm.domain.Admin;
 import com.dexterlab.crm.domain.PageQuery;
 import com.dexterlab.crm.domain.entity.Account;
 import com.dexterlab.crm.service.AccountService;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,7 +33,7 @@ public class AccountController {
     }
 
     @GetMapping
-    public List<Account> findAll(){
+    public List<Account> findAll(Authentication auth){
         EntityWrapper ew=new EntityWrapper();
         ew.setEntity(new Account());
 //        ew.where("name={0}", "'zhangsan'").and("id=1")

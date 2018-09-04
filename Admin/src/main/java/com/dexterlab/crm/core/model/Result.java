@@ -21,8 +21,6 @@ public class Result  implements Serializable {
 
     private Integer code = CODE_DEF;
 
-    private Boolean success = false;
-
     private String msg;
 
     private Object obj;
@@ -33,14 +31,6 @@ public class Result  implements Serializable {
 
     public void setCode(Integer code) {
         this.code = code;
-    }
-
-    public Boolean getSuccess() {
-        return success;
-    }
-
-    public void setSuccess(Boolean success) {
-        this.success = success;
     }
 
     public String getMsg() {
@@ -77,24 +67,28 @@ public class Result  implements Serializable {
     }
     public static Result ok() {
         Result r = new Result();
-        r.setSuccess(true);
         return r;
     }
     public static Result ok(String msg) {
         Result r = new Result();
-        r.setSuccess(true);
         r.setMsg(msg);
         return r;
     }
     public static Result ok(Object obj) {
         Result r = new Result();
-        r.setSuccess(true);
         r.setObj(obj);
         return r;
     }
     public static Result ok(Object obj,String msg) {
         Result r = new Result();
-        r.setSuccess(true);
+        r.setObj(obj);
+        r.setMsg(msg);
+        return r;
+    }
+
+    public static Result of(Integer code,String msg, Object obj) {
+        Result r = new Result();
+        r.setCode(code);
         r.setObj(obj);
         r.setMsg(msg);
         return r;
