@@ -1,5 +1,6 @@
 package com.dexterlab.crm.controller;
 
+import com.dexterlab.crm.core.model.Result;
 import com.dexterlab.crm.domain.entity.User;
 import com.dexterlab.crm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class HelloWorldController {
 //    }
 
     @GetMapping
-    public Object findAllUser(){
-        return userService.findAllUser();
+    public Result findAllUser(){
+        return Result.ok(userService.findAllUser());
     }
 
     @PostMapping
