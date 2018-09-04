@@ -3,15 +3,15 @@ package com.dexterlab.crm.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.dexterlab.crm.domain.Admin;
 import com.dexterlab.crm.domain.PageQuery;
 import com.dexterlab.crm.domain.entity.Account;
 import com.dexterlab.crm.service.AccountService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -46,6 +46,11 @@ public class AccountController {
         return accountService.selectList(ew);
     }
 
+    @GetMapping("new")
+    public List<Account> findAll1(){
+        return accountService.getAll().stream().filter(account -> account.getId()>100 && account.getId()<200).collect(Collectors.toList());
+    }
+
     @GetMapping("page")
     public Page<Account> findAll(PageQuery page){
         return accountService.selectPage(page.buildPage());
@@ -64,6 +69,11 @@ public class AccountController {
     @GetMapping("cache/{accountId}")
     public Account findAccount2(@PathVariable Long accountId){
         return accountService.getAccountCache(accountId);
+    }
+
+    @PostMapping
+    public void findAccount(@Valid @RequestBody Admin admin){
+        accountService.insert(admin.of());
     }
 }
 
