@@ -1,7 +1,9 @@
 package com.dexterlab.crm.dao;
 
-import com.dexterlab.crm.domain.entity.Account;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.dexterlab.crm.domain.entity.Account;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +14,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @since 2018-08-31
  */
 public interface AccountMapper extends BaseMapper<Account> {
-
+    List<Account> getAll();
 }

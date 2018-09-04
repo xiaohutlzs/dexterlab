@@ -20,4 +20,7 @@
         id, account, password, type, create_time, creator, modify_time, modifyer, deleted
     </sql>
 
+    <select id="getAll"  resultMap="BaseResultMap">
+      select  <include refid="Base_Column_List" /> from t_account
+    </select>
 </mapper>

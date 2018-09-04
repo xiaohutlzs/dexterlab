@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -20,6 +21,9 @@ import java.io.Serializable;
  */
 @Service
 public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> implements AccountService {
+    @Autowired
+    private AccountMapper accountMapper;
+
     @Autowired
     private RedisTemplate<String, Serializable> template;
     @Override
@@ -37,5 +41,10 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     @Override
     public Account getAccount(Long id) {
         return baseMapper.selectById(id);
+    }
+
+    @Override
+    public List<Account> getAll() {
+        return accountMapper.getAll();
     }
 }
