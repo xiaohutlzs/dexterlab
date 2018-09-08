@@ -2,12 +2,6 @@ package com.dexterlab.crm.service.security;
 
 import org.springframework.security.core.GrantedAuthority;
 
-/**
- * Created by https://github.com/kuangcp
- *
- * @author kuangcp
- * @date 18-3-28  下午3:45
- */
 public class GrantedAuthorityImpl implements GrantedAuthority {
     private String authority;
 

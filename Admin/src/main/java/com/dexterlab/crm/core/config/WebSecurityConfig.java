@@ -2,7 +2,9 @@ package com.dexterlab.crm.core.config;
 
 import com.dexterlab.crm.core.filter.JWTAuthenticationFilter;
 import com.dexterlab.crm.core.filter.JWTLoginFilter;
+import com.dexterlab.crm.service.AccountService;
 import com.dexterlab.crm.service.security.CustomAuthenticationProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,15 +13,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-/**
- * Created by https://github.com/kuangcp
- *
- * @author kuangcp
- * @date 18-3-28  上午9:29
- */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private AccountService accountService;
+
     // 设置 HTTP 验证规则
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -34,14 +33,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 所有 /login 的POST请求 都放行
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 // 权限检查
-                .antMatchers("/hello").hasAuthority("AUTH_WRITE")
+                .antMatchers("/account").hasAuthority("AUTH_WRITE")
                 // 角色检查
-                .antMatchers("/account").hasRole("ADMIN")
+                .antMatchers("/account").hasAnyRole("ADMIN")
                 // 对Rest请求需要身份认证, 放行OPTIONS
             .antMatchers(HttpMethod.POST).authenticated()
             .antMatchers(HttpMethod.PUT).authenticated()
             .antMatchers(HttpMethod.DELETE).authenticated()
             .antMatchers(HttpMethod.GET).authenticated()
+                .and().logout().logoutUrl("/logout")
                 .and()
                 // 添加一个过滤器 所有访问 /login 的请求交给 JWTLoginFilter 来处理 这个类处理所有的JWT相关内容
                 .addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // 使用自定义身份验证组件
-        auth.authenticationProvider(new CustomAuthenticationProvider());
+        auth.authenticationProvider(new CustomAuthenticationProvider(accountService));
 
     }
 }

@@ -3,6 +3,8 @@ package com.dexterlab.crm.dao;
 import com.dexterlab.crm.domain.entity.Manager;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  * 管理用户表 Mapper 接口
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface ManagerMapper extends BaseMapper<Manager> {
 
+    List<Manager> selectByAge(int age);
 }

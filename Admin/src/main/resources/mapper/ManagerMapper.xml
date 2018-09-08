@@ -22,4 +22,7 @@
         id, account_id, name, age, gender, department, create_time, creator, modify_time, modifyer, deleted
     </sql>
 
+    <select id="selectByAge" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select <include refid="Base_Column_List"/> from t_manager where age = #{age} and id >10 and id &lt; 100 and deleted = false
+    </select>
 </mapper>

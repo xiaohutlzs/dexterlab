@@ -23,7 +23,7 @@ public class Result  implements Serializable {
 
     private String msg;
 
-    private Object obj;
+    private Object data;
 
     public Integer getCode() {
         return code;
@@ -41,12 +41,12 @@ public class Result  implements Serializable {
         this.msg = msg;
     }
 
-    public Object getObj() {
-        return obj;
+    public Object getData() {
+        return data;
     }
 
     public void setObj(Object obj) {
-        this.obj = obj;
+        this.data = obj;
     }
 
     public static Result error(){

@@ -12,12 +12,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-/**
- * Created by https://github.com/kuangcp
- *
- * @author kuangcp
- * @date 18-3-28  下午3:30
- */
 public class JWTAuthenticationFilter extends GenericFilterBean {
 
     @Override

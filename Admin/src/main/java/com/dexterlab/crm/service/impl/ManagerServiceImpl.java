@@ -6,6 +6,8 @@ import com.dexterlab.crm.service.ManagerService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 管理用户表 服务实现类
@@ -17,4 +19,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class ManagerServiceImpl extends ServiceImpl<ManagerMapper, Manager> implements ManagerService {
 
+    private final ManagerMapper managerMapper;
+
+    public ManagerServiceImpl(ManagerMapper managerMapper) {
+        this.managerMapper = managerMapper;
+    }
+
+    @Override
+    public List<Manager> getManagerByAge(Integer age) {
+        return managerMapper.selectByAge(age);
+    }
 }

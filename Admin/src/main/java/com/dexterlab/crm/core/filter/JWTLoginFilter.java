@@ -16,12 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by https://github.com/kuangcp
- *
- * @author kuangcp
- * @date 18-3-28  下午3:40
- */
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
     public JWTLoginFilter(String url, AuthenticationManager authManager) {
@@ -44,7 +38,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res,
                                             FilterChain chain, Authentication auth) {
-        TokenAuthenticationService.addAuthentication(res, auth.getName());
+        TokenAuthenticationService.addAuthentication(res, auth);
     }
 
 

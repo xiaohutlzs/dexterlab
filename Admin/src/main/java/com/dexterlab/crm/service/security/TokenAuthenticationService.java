@@ -1,6 +1,8 @@
 package com.dexterlab.crm.service.security;
 
 import com.dexterlab.crm.core.utils.JSONResult;
+import com.dexterlab.crm.core.utils.SpringContextUtils;
+import com.dexterlab.crm.service.RedisService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -15,26 +17,19 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by https://github.com/kuangcp
- *
- * @author kuangcp
- * @date 18-3-28  下午3:31
- */
-
 public class TokenAuthenticationService {
     private static final long EXPIRATION_TIME = 432_000_000;     // 5天
     private static final String SECRET = "P@ssw02d";            // JWT密码
     private static final String TOKEN_PREFIX = "Bearer";        // Token前缀
     private static final String HEADER_STRING = "Authorization";// 存放Token的Header Key
-
-    public static void addAuthentication(HttpServletResponse response, String username) {
+    private static RedisService template = SpringContextUtils.getBean(RedisService.class);
+    public static void addAuthentication(HttpServletResponse response, Authentication auth) {
         // 生成JWT
         String JWT = Jwts.builder()
                 // 保存权限（角色）
                 .claim("authorities", "ROLE_ADMIN,AUTH_WRITE")
                 // 用户名写入标题
-                .setSubject(username)
+                .setSubject(auth.getName())
                 // 有效期设置
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 // 签名设置
@@ -43,6 +38,7 @@ public class TokenAuthenticationService {
 
         // 将 JWT 写入 body
         try {
+            template.set("token:"+JWT, JWT);
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
             response.getOutputStream().println(JSONResult.fillResultString(0, "", JWT));
@@ -53,15 +49,14 @@ public class TokenAuthenticationService {
 
     public static Authentication getAuthentication(HttpServletRequest request) {
         // 从Header中拿到token
-        String token = request.getHeader(HEADER_STRING);
-
+        String token = template.get("token:"+request.getHeader(HEADER_STRING).replace(TOKEN_PREFIX, "").trim());
         if (token != null) {
             // 解析 Token
             Claims claims = Jwts.parser()
                     // 验签
                     .setSigningKey(SECRET)
                     // 去掉 Bearer
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                    .parseClaimsJws(token)
                     .getBody();
 
             // 拿用户名

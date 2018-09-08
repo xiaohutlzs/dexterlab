@@ -1,11 +1,5 @@
 package com.dexterlab.crm.service.security;
 
-/**
- * Created by https://github.com/kuangcp
- *
- * @author kuangcp
- * @date 18-3-28  下午3:45
- */
 public class AccountCredentials {
 
     private String username;
