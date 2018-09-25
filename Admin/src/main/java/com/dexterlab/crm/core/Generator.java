@@ -24,7 +24,7 @@ public class Generator {
     //作者
     private static String authorName = "xiaohu";
     //要生成的表名
-    private static String[] tables = {"t_account","t_manager"};
+    private static String[] tables = {"t_permission"};
     //table前缀
     private static String prefix = "t_";
 

@@ -6,6 +6,7 @@ import com.dexterlab.crm.service.RedisService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -47,9 +48,9 @@ public class TokenAuthenticationService {
         }
     }
 
-    public static Authentication getAuthentication(HttpServletRequest request) {
-        // 从Header中拿到token
-        String token = template.get("token:"+request.getHeader(HEADER_STRING).replace(TOKEN_PREFIX, "").trim());
+    public static Authentication getAuthentication(HttpServletRequest request) throws IOException {
+        // 从Header中拿到token\
+        String token = template.get("token:"+(request.getHeader(HEADER_STRING)==null?"":request.getHeader(HEADER_STRING)).replace(TOKEN_PREFIX, "").trim());
         if (token != null) {
             // 解析 Token
             Claims claims = Jwts.parser()
@@ -58,17 +59,15 @@ public class TokenAuthenticationService {
                     // 去掉 Bearer
                     .parseClaimsJws(token)
                     .getBody();
-
             // 拿用户名
             String user = claims.getSubject();
 
             // 得到 权限（角色）
             List<GrantedAuthority> authorities =  AuthorityUtils.commaSeparatedStringToAuthorityList((String) claims.get("authorities"));
-
+            if(StringUtils.isEmpty(user))return null;
             // 返回验证令牌
-            return user != null ?
-                    new UsernamePasswordAuthenticationToken(user, null, authorities)
-                    : null;
+//            list.stream().filter(permission -> permission.getCode().equals())
+            return new UsernamePasswordAuthenticationToken(user, null, authorities);
         }
         return null;
     }

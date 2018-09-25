@@ -1,4 +1,4 @@
-package com.dexterlab.crm.domain;
+package com.dexterlab.crm.domain.bean;
 
 import com.dexterlab.crm.domain.entity.Account;
 
@@ -16,7 +16,7 @@ public class Admin {
         Account account = new Account();
         account.setAccount(userName);
         account.setPassword(passWord);
-        account.setType("USER");
+        account.setType(AccountType.ADMIN);
         return account;
     }
     public String getUserName() {

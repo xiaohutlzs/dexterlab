@@ -2,6 +2,7 @@ package com.dexterlab.crm.service;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.dexterlab.crm.domain.entity.Account;
+import com.dexterlab.crm.domain.entity.Permission;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface AccountService extends IService<Account> {
     Account getAccount(Long id);
 
     List<Account> getAll();
+
+    List<Permission> getMyPermission(Long roleId);
 }

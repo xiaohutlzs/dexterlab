@@ -32,10 +32,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 // 所有 /login 的POST请求 都放行
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
-                // 权限检查
-                .antMatchers("/account").hasAuthority("AUTH_WRITE")
+// 权限检查
+                .antMatchers(HttpMethod.POST, "/api/admin/account").permitAll()
+//                .antMatchers("/account").hasAuthority("AUTH_WRITE")
                 // 角色检查
-                .antMatchers("/account").hasAnyRole("ADMIN")
+//                .antMatchers("/account").hasAnyRole("ADMIN")
+//                .antMatchers("/api/admin").hasAnyRole("ADMIN")
                 // 对Rest请求需要身份认证, 放行OPTIONS
             .antMatchers(HttpMethod.POST).authenticated()
             .antMatchers(HttpMethod.PUT).authenticated()

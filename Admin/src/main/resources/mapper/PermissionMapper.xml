@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dexterlab.crm.dao.PermissionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dexterlab.crm.domain.entity.Permission">
+        <id column="id" property="id" />
+        <result column="code" property="code" />
+        <result column="action" property="action" />
+        <result column="class_name" property="className" />
+        <result column="method" property="method" />
+        <result column="method_type" property="methodType" />
+        <result column="sort" property="sort" />
+        <result column="create_time" property="createTime" />
+        <result column="creator" property="creator" />
+        <result column="modify_time" property="modifyTime" />
+        <result column="modifyer" property="modifyer" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, code, action, class_name, method, method_type, sort, create_time, creator, modify_time, modifyer, deleted
+    </sql>
+
+    <select id="selectListByAccount" parameterType="java.lang.Long" resultMap="BaseResultMap">
+      select  <include refid="Base_Column_List" /> from t_permission where code in (select permission_code from t_role_permission where role_id = #{roleId})
+    </select>
+</mapper>

@@ -5,31 +5,28 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
-import com.dexterlab.crm.domain.bean.AccountType;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * <p>
- * 账号表
+ * 角色表
  * </p>
  *
  * @author xiaohu
- * @since 2018-08-31
+ * @since 2018-09-19
  */
-@TableName("t_account")
-public class Account extends Model<Account> {
+@TableName("t_roles")
+public class Roles extends Model<Roles> {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
-    private String account;
-    private String password;
-    private AccountType type;
-    @TableField("role_id")
-    private Long roleId;
+    private String name;
+    @TableField("parent_id")
+    private Long parentId;
     @TableField("create_time")
     private Date createTime;
     private Long creator;
@@ -52,36 +49,20 @@ public class Account extends Model<Account> {
         this.id = id;
     }
 
-    public String getAccount() {
-        return account;
+    public String getName() {
+        return name;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public AccountType getType() {
-        return type;
-    }
-
-    public void setType(AccountType type) {
-        this.type = type;
-    }
-
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     public Date getCreateTime() {

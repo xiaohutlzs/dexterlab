@@ -2,7 +2,9 @@ package com.dexterlab.crm.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.dexterlab.crm.dao.AccountMapper;
+import com.dexterlab.crm.dao.PermissionMapper;
 import com.dexterlab.crm.domain.entity.Account;
+import com.dexterlab.crm.domain.entity.Permission;
 import com.dexterlab.crm.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -23,6 +25,8 @@ import java.util.List;
 public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> implements AccountService {
     @Autowired
     private AccountMapper accountMapper;
+    @Autowired
+    private PermissionMapper permissionMapper;
 
     @Autowired
     private RedisTemplate<String, Serializable> template;
@@ -46,5 +50,10 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     @Override
     public List<Account> getAll() {
         return accountMapper.getAll();
+    }
+
+    @Override
+    public List<Permission> getMyPermission(Long roleId) {
+        return permissionMapper.selectListByAccount(roleId);
     }
 }

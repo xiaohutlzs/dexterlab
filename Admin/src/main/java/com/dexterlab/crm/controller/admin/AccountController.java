@@ -1,10 +1,11 @@
-package com.dexterlab.crm.controller;
+package com.dexterlab.crm.controller.admin;
 
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.dexterlab.crm.domain.Admin;
+import com.dexterlab.crm.core.annotation.ControllerAnnotation;
 import com.dexterlab.crm.domain.PageQuery;
+import com.dexterlab.crm.domain.bean.AccountBean;
 import com.dexterlab.crm.domain.entity.Account;
 import com.dexterlab.crm.service.AccountService;
 import org.springframework.security.core.Authentication;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
  * @since 2018-08-31
  */
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/api/admin/account")
 public class AccountController {
 
     private final AccountService accountService;
@@ -32,6 +33,7 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    @ControllerAnnotation(permissionCode = "ACCOUNT:ALL", sort = 1)
     @GetMapping
     public List<Account> findAll(Authentication auth){
         EntityWrapper ew=new EntityWrapper();
@@ -73,8 +75,8 @@ public class AccountController {
     }
 
     @PostMapping
-    public void findAccount(@Valid @RequestBody Admin admin){
-        accountService.insert(admin.of());
+    public void findAccount(@Valid @RequestBody AccountBean account){
+        accountService.insert(account.of());
     }
 }
 

@@ -21,3 +21,5 @@ logging:
   level:
     com:
       dexterlab: DEBUG
+permission:
+  refresh: true
